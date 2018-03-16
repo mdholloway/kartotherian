@@ -68,7 +68,7 @@ services:
 
       modules:
       - "tilelive-bridge"
-      - "tilelive-vector"
+      - "@kartotherian/tilelive-vector"
       - "@kartotherian/autogen"
       - "@kartotherian/babel"
       - "@kartotherian/cassandra"

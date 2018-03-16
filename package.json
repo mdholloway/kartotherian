@@ -33,7 +33,7 @@
     "@kartotherian/autogen": "^0.0.10",
     "@kartotherian/babel": "^0.1.8",
     "@kartotherian/cassandra": "^0.0.13",
-    "@kartotherian/core": "kartotherian/core#arbitrary-param-object",
+    "@kartotherian/core": "^0.1.2",
     "@kartotherian/geoshapes": "^0.0.13",
     "@kartotherian/layermixer": "^0.0.8",
     "@kartotherian/maki": "^0.0.10",

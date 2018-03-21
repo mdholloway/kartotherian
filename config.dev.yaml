@@ -68,8 +68,12 @@ services:
 
       modules:
       - "tilelive-bridge"
+<<<<<<< HEAD
       - "tilelive-http"
       - "tilelive-vector"
+=======
+      - "@kartotherian/tilelive-vector"
+>>>>>>> 58a3317ccc0daed47e94a3b19461ce5513f08e8d
       - "@kartotherian/autogen"
       - "@kartotherian/babel"
       - "@kartotherian/cassandra"

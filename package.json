@@ -32,7 +32,7 @@
   "homepage": "https://github.com/kartotherian/kartotherian",
   "dependencies": {
     "@kartotherian/autogen": "^0.0.10",
-    "@kartotherian/babel": "kartotherian/babel#master",
+    "@kartotherian/babel": "^0.1.9",
     "@kartotherian/cassandra": "^0.0.13",
     "@kartotherian/core": "^0.1.2",
     "@kartotherian/geoshapes": "^0.0.13",

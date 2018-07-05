@@ -1,6 +1,7 @@
-
+'use strict';
 
 const sUtil = require('../lib/util');
+const swaggerUi = require('../lib/swagger-ui');
 
 
 /**
@@ -19,33 +20,40 @@ let app;
  * Instructs robots no indexing should occur on this domain.
  */
 router.get('/robots.txt', (req, res) => {
-  res.set({
-    'User-agent': '*',
-    Disallow: '/',
-  }).end();
+
+    res.set({
+        'User-agent': '*',
+        'Disallow': '/'
+    }).end();
+
 });
 
 
 /**
  * GET /
- * Main entry point. Currently it only responds if the spec query
+ * Main entry point. Currently it only responds if the spec or doc query
  * parameter is given, otherwise lets the next middleware handle it
  */
 router.get('/', (req, res, next) => {
-  if (!Object.prototype.hasOwnProperty.call((req.query || {}), 'spec')) {
-    next();
-  } else {
-    res.json(app.conf.spec);
-  }
+
+    if ({}.hasOwnProperty.call(req.query || {}, 'spec')) {
+        res.json(app.conf.spec);
+    } else if ({}.hasOwnProperty.call(req.query || {}, 'doc')) {
+        return swaggerUi.processRequest(app, req, res);
+    } else {
+        next();
+    }
+
 });
 
 
-module.exports = function root(appObj) {
-  app = appObj;
+module.exports = (appObj) => {
 
-  return {
-    path: '/',
-    skip_domain: true,
-    router,
-  };
+    app = appObj;
+
+    return {
+        path: '/',
+        skip_domain: true,
+        router
+    };
 };

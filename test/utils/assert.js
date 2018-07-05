@@ -1,22 +1,20 @@
-/* eslint no-console: 0 */
+/* eslint-disable no-console */
 
-// eslint-disable-next-line strict,lines-around-directive
 'use strict';
 
 const assert = require('assert');
 
+
 function deepEqual(result, expected, message) {
-  try {
-    if (typeof expected === 'string') {
-      assert.ok(result === expected || (new RegExp(expected).test(result)));
-    } else {
-      assert.deepEqual(result, expected, message);
+
+    try {
+        assert.deepEqual(result, expected, message);
+    } catch (e) {
+        console.log(`Expected:\n${JSON.stringify(expected, null, 2)}`);
+        console.log(`Result:\n${JSON.stringify(result, null, 2)}`);
+        throw e;
     }
-  } catch (e) {
-    console.log(`Expected:\n${JSON.stringify(expected, null, 2)}`);
-    console.log(`Result:\n${JSON.stringify(result, null, 2)}`);
-    throw e;
-  }
+
 }
 
 
@@ -24,65 +22,66 @@ function deepEqual(result, expected, message) {
  * Asserts whether the return status was as expected
  */
 function status(res, expected) {
-  deepEqual(
-    res.status, expected,
-    `Expected status to be ${expected}, but was ${res.status}`
-  );
+
+    deepEqual(res.status, expected,
+        `Expected status to be ${expected}, but was ${res.status}`);
+
 }
 
 
 /**
  * Asserts whether content type was as expected
  */
-function contentType(res, expected) {
-  const actual = res.headers['content-type'];
-  deepEqual(
-    actual, expected,
-    `Expected content-type to be ${expected}, but was ${actual}`
-  );
+function contentType(res, expectedRegexString) {
+
+    const actual = res.headers['content-type'];
+    assert.ok(RegExp(expectedRegexString).test(actual),
+        `Expected content-type to match ${expectedRegexString}, but was ${actual}`);
+
 }
 
 
 function isDeepEqual(result, expected, message) {
-  try {
-    if (typeof expected === 'string') {
-      assert.ok(result === expected || (new RegExp(expected).test(result)), message);
-    } else {
-      assert.deepEqual(result, expected, message);
+
+    try {
+        assert.deepEqual(result, expected, message);
+        return true;
+    } catch (e) {
+        return false;
     }
-    return true;
-  } catch (e) {
-    return false;
-  }
+
 }
 
 
 function notDeepEqual(result, expected, message) {
-  try {
-    assert.notDeepEqual(result, expected, message);
-  } catch (e) {
-    console.log(`Not expected:\n${JSON.stringify(expected, null, 2)}`);
-    console.log(`Result:\n${JSON.stringify(result, null, 2)}`);
-    throw e;
-  }
+
+    try {
+        assert.notDeepEqual(result, expected, message);
+    } catch (e) {
+        console.log(`Not expected:\n${JSON.stringify(expected, null, 2)}`);
+        console.log(`Result:\n${JSON.stringify(result, null, 2)}`);
+        throw e;
+    }
+
 }
 
 
 function fails(promise, onRejected) {
-  let failed = false;
 
-  function trackFailure(e) {
-    failed = true;
-    return onRejected(e);
-  }
+    let failed = false;
 
-  function check() {
-    if (!failed) {
-      throw new Error('expected error was not thrown');
+    function trackFailure(e) {
+        failed = true;
+        return onRejected(e);
     }
-  }
 
-  return promise.catch(trackFailure).then(check);
+    function check() {
+        if (!failed) {
+            throw new Error('expected error was not thrown');
+        }
+    }
+
+    return promise.catch(trackFailure).then(check);
 }
 
 

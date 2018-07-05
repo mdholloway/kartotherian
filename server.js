@@ -7,5 +7,4 @@
 // module(s) specified in the config 'services' section (app.js in this
 // example).
 const ServiceRunner = require('service-runner');
-
 new ServiceRunner().start();

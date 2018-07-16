@@ -69,7 +69,7 @@ services:
       - "@kartotherian/overzoom"
       - "@kartotherian/postgres"
       - "@kartotherian/substantial"
-      - "@mapbox/tilelive-vector"
+      - "@kartotherian/tilelive-vector"
       - "@mapbox/tilejson"
 
       requestHandlers:

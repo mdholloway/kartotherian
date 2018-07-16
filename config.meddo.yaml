@@ -113,8 +113,8 @@ services:
       - "@kartotherian/overzoom"
       - "@kartotherian/postgres"
       - "@kartotherian/substantial"
+      - "@kartotherian/tilelive-vector"
       - "@mapbox/tilelive-bridge"
-      - "@mapbox/tilelive-vector"
       - "@mapbox/tilejson"
 
       requestHandlers:
